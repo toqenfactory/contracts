@@ -1,6 +1,8 @@
-name: test
+name: Foundry tests
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
 
 env:
   FOUNDRY_PROFILE: ci
@@ -22,13 +24,10 @@ jobs:
         with:
           version: nightly
 
-      - name: Run Forge build
-        run: |
-          forge --version
-          forge build --sizes
-        id: build
-
       - name: Run Forge tests
-        run: |
-          forge test -vvv
+        run: forge test -vvv --gas-report
         id: test
+
+      - name: Run Forge coverage
+        run: forge coverage
+        id: coverage
