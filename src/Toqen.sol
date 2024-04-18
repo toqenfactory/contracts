@@ -59,7 +59,7 @@ contract ERC20Toqen is ERC20, ERC20Permit, ReentrancyGuard {
     function mint(address account, uint256 amount) public payable nonReentrant {
         require(totalSupply() + amount <= maxSupply, "Exceeds max supply");
 
-        if (tokenPrice > 0 && msg.value < amount * tokenPrice) {
+        if (tokenPrice > 0 && msg.value != amount * tokenPrice / 10**decimals()) {
             revert("Insufficient Ether sent");
         }
 
@@ -69,7 +69,7 @@ contract ERC20Toqen is ERC20, ERC20Permit, ReentrancyGuard {
     /// @notice Receives Ether and mints tokens according to the token price
     receive() external payable {
         require(tokenPrice > 0, "Cannot send ETH with zero token price");
-        mint(msg.sender, msg.value / tokenPrice);
+        mint(msg.sender, msg.value * 10**decimals() / tokenPrice);
     }
 
     /// @notice Withdraws all Ether in the contract to a owner address
@@ -133,7 +133,7 @@ contract ERC721Toqen is ERC721, ReentrancyGuard {
     function mint(address account, uint256 amount) public payable nonReentrant {
         require(totalSupply + amount <= maxSupply, "Exceeds max supply");
 
-        if (tokenPrice > 0 && msg.value < amount * tokenPrice) {
+        if (tokenPrice > 0 && msg.value != amount * tokenPrice) {
             revert("Insufficient Ether sent");
         }
 
