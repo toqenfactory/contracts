@@ -1,0 +1,19 @@
+{
+  "name": "@toqen/contracts",
+  "description": "🏭 Toqen Factory Contracts",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.1",
+  "keywords": [
+    "toqen",
+    "token",
+    "erc20",
+    "erc721"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toqenfactory/contracts.git"
+  }
+}
